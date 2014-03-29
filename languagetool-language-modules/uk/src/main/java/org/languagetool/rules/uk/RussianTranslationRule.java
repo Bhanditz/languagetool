@@ -48,16 +48,21 @@ public class RussianTranslationRule extends Rule {
 
 		for (AnalyzedTokenReadings token : tokens) {
 			String word = token.getToken();
-			if (spellerUkr.isMisspelled(word) && !spellerRus.isMisspelled(word)) {
-				List<String> translations = dictionary.translate(word);
-				if (!translations.isEmpty()) {
-					final RuleMatch ruleMatch = new RuleMatch(this,
-							token.getStartPos(), token.getStartPos()
-									+ word.length(),
-							messages.getString("spelling"),
-							messages.getString("desc_spelling_short"));
-					ruleMatch.setSuggestedReplacements(translations);
-					ruleMatches.add(ruleMatch);
+			if (spellerUkr.isMisspelled(word)) {
+				String rusLayoutWord = word.replace('і', 'ы').replace('ї', 'ъ')
+						.replace('є', 'э').replace('’', 'ё');
+				
+				if (!spellerRus.isMisspelled(rusLayoutWord)) {
+					List<String> translations = dictionary.translate(rusLayoutWord);
+					if (!translations.isEmpty()) {
+						final RuleMatch ruleMatch = new RuleMatch(this,
+								token.getStartPos(), token.getStartPos()
+										+ word.length(),
+								messages.getString("spelling"),
+								messages.getString("desc_spelling_short"));
+						ruleMatch.setSuggestedReplacements(translations);
+						ruleMatches.add(ruleMatch);
+					}
 				}
 			}
 		}
