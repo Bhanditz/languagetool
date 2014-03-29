@@ -30,6 +30,7 @@ import org.languagetool.rules.Rule;
 import org.languagetool.rules.WhitespaceRule;
 import org.languagetool.rules.uk.MorfologikUkrainianSpellerRule;
 import org.languagetool.rules.uk.MixedAlphabetsRule;
+import org.languagetool.rules.uk.RussianTranslationRule;
 import org.languagetool.rules.uk.SimpleReplaceRule;
 import org.languagetool.rules.uk.TokenAgreementRule;
 import org.languagetool.synthesis.Synthesizer;
@@ -149,7 +150,8 @@ public class Ukrainian extends Language {
         WhitespaceRule.class,
         // specific to Ukrainian:
         SimpleReplaceRule.class,
-        TokenAgreementRule.class
+        TokenAgreementRule.class,
+        RussianTranslationRule.class
         );
   }
 
